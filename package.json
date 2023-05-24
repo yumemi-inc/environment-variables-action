@@ -3,6 +3,7 @@
   "description": "Fetch environment variables without creating deployments.",
   "author": "Natsuki Ikeguchi <n_ikeguchi@yumemi.co.jp>",
   "license": "MIT",
+  "readme": "README.md",
   "main": "index.js",
   "scripts": {
     "build": "esbuild index.ts --bundle --platform=node > index.js",
