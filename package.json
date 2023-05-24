@@ -1,0 +1,20 @@
+{
+  "name": "@yumemi/environment-variables-action",
+  "description": "Fetch environment variables without creating deployments.",
+  "author": "Natsuki Ikeguchi <n_ikeguchi@yumemi.co.jp>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "check": "rome format . && rome check .",
+    "fix": "rome format --write . && rome check --apply-unsafe ."
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@octokit/rest": "^19.0.11"
+  },
+  "devDependencies": {
+    "rome": "^12.1.2",
+    "typescript": "^5.0.4"
+  }
+}
