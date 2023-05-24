@@ -1,6 +1,9 @@
 name: Environment Variables Action
 description: Fetch environment variables without creating deployments.
 author: YUMEMI Inc.
+branding:
+  icon: box
+  color: blue
 runs:
   using: node16
   main: 'index.js'
