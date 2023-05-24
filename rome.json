@@ -18,5 +18,8 @@
 			"semicolons": "always",
 			"trailingComma": "all"
 		}
+	},
+	"files": {
+		"ignore": ["index.js"]
 	}
 }

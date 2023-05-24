@@ -1,3 +1,5 @@
+import { exit } from 'node:process';
+
 import { debug, error, getInput, info, setOutput } from '@actions/core';
 import { Octokit } from '@octokit/rest';
 
@@ -28,4 +30,7 @@ const getInputRequired = (name: string) =>
 	debug('Done');
 })()
 	.then()
-	.catch(error);
+	.catch((e) => {
+		error(e);
+		exit(1);
+	});
