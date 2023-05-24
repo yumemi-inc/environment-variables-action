@@ -8,11 +8,12 @@ inputs:
   environment:
     required: true
     description: Name of the environment to fetch variables from.
+  token:
+    required: true
+    description: |
+      GitHub token with actions:read access.
+      Required since github.token does not support environments:read scope.
   repository_id:
     required: true
     description: Unique identifier of the repository.
     default: '${{ github.repository_id }}'
-  token:
-    required: true
-    description: GitHub token with actions:read access.
-    default: '${{ github.token }}'
