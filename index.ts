@@ -10,6 +10,7 @@ import {
   setOutput,
 } from '@actions/core';
 import { Octokit } from '@octokit/rest';
+import fetch from 'node-fetch';
 
 const getInputRequired = (name: string) =>
   getInput(name, {
@@ -24,6 +25,9 @@ const getInputRequired = (name: string) =>
 
   const octokit = new Octokit({
     auth: token,
+    request: {
+      fetch,
+    },
   });
 
   const env = await octokit.actions.listEnvironmentVariables({

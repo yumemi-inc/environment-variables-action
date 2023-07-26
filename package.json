@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@octokit/rest": "^20.0.1"
+    "@octokit/rest": "^20.0.1",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
