@@ -2049,7 +2049,7 @@ var require_core = __commonJS({
       ExitCode2[ExitCode2["Success"] = 0] = "Success";
       ExitCode2[ExitCode2["Failure"] = 1] = "Failure";
     })(ExitCode = exports.ExitCode || (exports.ExitCode = {}));
-    function exportVariable(name, val) {
+    function exportVariable2(name, val) {
       const convertedVal = utils_1.toCommandValue(val);
       process.env[name] = convertedVal;
       const filePath = process.env["GITHUB_ENV"] || "";
@@ -2058,7 +2058,7 @@ var require_core = __commonJS({
       }
       command_1.issueCommand("set-env", { name }, convertedVal);
     }
-    exports.exportVariable = exportVariable;
+    exports.exportVariable = exportVariable2;
     function setSecret(secret) {
       command_1.issueCommand("add-mask", {}, secret);
     }
@@ -2092,7 +2092,7 @@ var require_core = __commonJS({
       return inputs.map((input) => input.trim());
     }
     exports.getMultilineInput = getMultilineInput;
-    function getBooleanInput(name, options) {
+    function getBooleanInput2(name, options) {
       const trueValue = ["true", "True", "TRUE"];
       const falseValue = ["false", "False", "FALSE"];
       const val = getInput2(name, options);
@@ -2103,7 +2103,7 @@ var require_core = __commonJS({
       throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
 Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
     }
-    exports.getBooleanInput = getBooleanInput;
+    exports.getBooleanInput = getBooleanInput2;
     function setOutput2(name, value) {
       const filePath = process.env["GITHUB_OUTPUT"] || "";
       if (filePath) {
@@ -11671,6 +11671,7 @@ var getInputRequired = (name) => (0, import_core.getInput)(name, {
   const environment = getInputRequired("environment");
   const repositoryId = getInputRequired("repository_id");
   const token = getInputRequired("token");
+  const doExport = (0, import_core.getBooleanInput)("export");
   const octokit = new import_rest.Octokit({
     auth: token
   });
@@ -11680,6 +11681,7 @@ var getInputRequired = (name) => (0, import_core.getInput)(name, {
   });
   env.data.variables.forEach((v) => {
     (0, import_core.setOutput)(v.name, v.value);
+    doExport && (0, import_core.exportVariable)(v.name, v.value);
     (0, import_core.info)(`Successfully set ${v.name}=${v.value}`);
   });
   (0, import_core.debug)("Done");

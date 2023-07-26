@@ -1,6 +1,14 @@
 import { exit } from 'node:process';
 
-import { debug, error, getInput, info, setOutput } from '@actions/core';
+import {
+  debug,
+  error,
+  exportVariable,
+  getBooleanInput,
+  getInput,
+  info,
+  setOutput,
+} from '@actions/core';
 import { Octokit } from '@octokit/rest';
 
 const getInputRequired = (name: string) =>
@@ -12,6 +20,7 @@ const getInputRequired = (name: string) =>
   const environment = getInputRequired('environment');
   const repositoryId = getInputRequired('repository_id');
   const token = getInputRequired('token');
+  const doExport = getBooleanInput('export');
 
   const octokit = new Octokit({
     auth: token,
@@ -24,6 +33,7 @@ const getInputRequired = (name: string) =>
 
   env.data.variables.forEach((v) => {
     setOutput(v.name, v.value);
+    doExport && exportVariable(v.name, v.value);
     info(`Successfully set ${v.name}=${v.value}`);
   });
 
