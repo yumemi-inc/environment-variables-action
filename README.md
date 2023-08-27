@@ -9,7 +9,7 @@ Fetch environment variables without creating deployments.
 ## Why?
 
 We can adopt [Environments](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
-in cases of deployments using GitHub Actions. However, if we sometimes need to use environment variables **before** the
+in cases of deployments using GitHub Actions. However, we sometimes need to use environment variables **before** the
 deployment. Let's say you are applying Terraform stack via Actions. You don't need approval for the deployment in planning,
 but running plan usually requires environment variables.
 
