@@ -9,7 +9,7 @@ import {
   info,
   setOutput,
 } from '@actions/core';
-import { Octokit } from '@octokit/rest';
+import { Octokit, RestEndpointMethodTypes } from '@octokit/rest';
 import fetch from 'node-fetch';
 
 const getInputRequired = (name: string) =>
@@ -30,16 +30,21 @@ const getInputRequired = (name: string) =>
     },
   });
 
-  const env = await octokit.actions.listEnvironmentVariables({
-    repository_id: parseInt(repositoryId),
-    environment_name: environment,
-  });
+  const page = 1;
+  let env: RestEndpointMethodTypes['actions']['listEnvironmentVariables']['response'];
+  do {
+    env = await octokit.actions.listEnvironmentVariables({
+      repository_id: parseInt(repositoryId),
+      environment_name: environment,
+      page,
+    });
 
-  env.data.variables.forEach((v) => {
-    setOutput(v.name, v.value);
-    doExport && exportVariable(v.name, v.value);
-    info(`Successfully set ${v.name}=${v.value}`);
-  });
+    for (const v of env.data.variables) {
+      setOutput(v.name, v.value);
+      doExport && exportVariable(v.name, v.value);
+      info(`Successfully set ${v.name}=${v.value}`);
+    }
+  } while (env.data.total_count > env.data.variables.length);
 
   debug('Done');
 })()
