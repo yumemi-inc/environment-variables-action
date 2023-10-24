@@ -30,13 +30,14 @@ const getInputRequired = (name: string) =>
     },
   });
 
-  const page = 1;
+  let page = 1;
   let env: RestEndpointMethodTypes['actions']['listEnvironmentVariables']['response'];
   do {
     env = await octokit.actions.listEnvironmentVariables({
       repository_id: parseInt(repositoryId),
       environment_name: environment,
-      page,
+      page: page++,
+      per_page: 100,
     });
 
     for (const v of env.data.variables) {
