@@ -1,6 +1,6 @@
 # Environment Variables Action
 
-> **Warning**  
+> [!WARNING]
 > This is not an official product of YUMEMI Inc.
 
 Fetch environment variables without creating deployments.
